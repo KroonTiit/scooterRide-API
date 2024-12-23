@@ -1,13 +1,13 @@
-package com.scooterRide.demo;
+package com.scooterRideApi.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class ScooterRideApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(ScooterRideApiApplication.class, args);
 	}
 
 }
