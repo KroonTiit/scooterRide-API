@@ -30,4 +30,9 @@ public class Rider {
   @Column(updatable = false)
   private LocalDateTime createdDtime;
 
+  @PrePersist
+  protected void onCreate() {
+      createdDtime = LocalDateTime.now();
+  }
+
 }
