@@ -58,4 +58,5 @@ class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
         }
     }
+    //in service of time I am leaving out other CRUD functionalitys from the user
 }

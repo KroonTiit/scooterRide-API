@@ -17,7 +17,6 @@ public class BearerTokenInterceptor implements org.springframework.web.servlet.H
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.replaceFirst("Bearer ", "");
-            // Simulate token validation. Replace with your actual service call.
             String username = validateToken(token);
             if (username != null) {
                 return true;
