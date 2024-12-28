@@ -11,10 +11,12 @@ public class Vehicle {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long Id;
 
+  private Boolean reserved = false;
+
+  private Reservation reservation;
+  
   private Integer stateOfCharge;
 
-  private Float latitude;
-  
-  private Float longitude;
+  private Location location;
 
 }
