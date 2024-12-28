@@ -41,7 +41,7 @@ class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody RiderDTO rider) {
         if (riderService.authenticateUser(rider)) {
-            return ResponseEntity.ok("Login successful: " + riderService.generateToken(rider.getUsername()));
+            return ResponseEntity.ok("Login successful: " + bearerTokenInterceptor.generateToken(rider.getUsername()));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
