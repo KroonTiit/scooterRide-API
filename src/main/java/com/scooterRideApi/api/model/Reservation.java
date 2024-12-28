@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
-
 @Entity
 @Data
 public class Reservation {
@@ -23,10 +22,10 @@ public class Reservation {
 
   @OneToOne
   private Location startingLocation;
-  
+
   @OneToOne
   private Location endingLocation;
 
   private Double cost;
-  
+
 }

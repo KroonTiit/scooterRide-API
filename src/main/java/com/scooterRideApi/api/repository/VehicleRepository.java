@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.scooterRideApi.api.model.Vehicle;
 
 @Repository
-public interface VehicleRepository extends JpaRepository<Vehicle, Long>{
-  
+public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
+
 }

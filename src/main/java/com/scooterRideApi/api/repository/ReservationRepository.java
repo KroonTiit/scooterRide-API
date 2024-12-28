@@ -7,5 +7,5 @@ import com.scooterRideApi.api.model.Reservation;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-  
+
 }
