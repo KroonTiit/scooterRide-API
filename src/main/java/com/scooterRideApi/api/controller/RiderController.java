@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.scooterRideApi.api.dto.RiderDTO;
 import com.scooterRideApi.api.model.Rider;
+import com.scooterRideApi.api.security.BearerTokenInterceptor;
 import com.scooterRideApi.api.service.RiderService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -23,6 +24,9 @@ import com.scooterRideApi.api.service.RiderService;
 class UserController {
     @Autowired
     private RiderService riderService;
+
+    @Autowired
+    private BearerTokenInterceptor bearerTokenInterceptor;
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RiderDTO rider) {
@@ -46,7 +50,7 @@ class UserController {
     @GetMapping("/getUserData")
     public ResponseEntity<Object> getUserData(@RequestHeader("Authorization") String token) {
         String authToken = token.replaceFirst("Bearer ", "");
-        String username = riderService.validateToken(authToken);
+        String username = bearerTokenInterceptor.validateToken(authToken);
         if (username != null) {
             Optional<Rider> user = riderService.riderRepository.findByUsername(username);
             return ResponseEntity.ok(user.orElse(null));

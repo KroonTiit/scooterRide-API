@@ -35,14 +35,4 @@ public class RiderService {
         Optional<Rider> currentRider = riderRepository.findByUsername(rider.getUsername());
         return currentRider.isPresent() && passwordEncoder.matches(rider.getPassword(), currentRider.get().getPassword());
     }
-
-    public String generateToken(String username) {
-        String token = UUID.randomUUID().toString();
-        tokenStore.put(token, username);
-        return token;
-    }
-
-    public String validateToken(String token) {
-        return tokenStore.get(token);
-    }
 }

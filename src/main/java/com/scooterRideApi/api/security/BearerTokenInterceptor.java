@@ -1,5 +1,6 @@
 package com.scooterRideApi.api.security;
 
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,11 @@ public class BearerTokenInterceptor implements org.springframework.web.servlet.H
     }
     public String validateToken(String token) {
         return tokenStore.get(token);
+    }
+
+    public String generateToken(String username) {
+        String token = UUID.randomUUID().toString();
+        tokenStore.put(token, username);
+        return token;
     }
 }
