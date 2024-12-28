@@ -1,8 +1,6 @@
 package com.scooterRideApi.api.service;
 
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
