@@ -5,41 +5,36 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.scooterRideApi.api.dto.VehicleDTO;
+import com.scooterRideApi.api.dto.mapper.VehicleMapper;
 import com.scooterRideApi.api.model.Location;
 import com.scooterRideApi.api.model.Vehicle;
 import com.scooterRideApi.api.repository.VehicleRepository;
 
 @Service
 public class VehicleService {
-  
+
   @Autowired
   private VehicleRepository vehicleRepository;
 
   @Autowired
   private ReservationService reservationService;
-  
-  public Optional<Vehicle> findVehicle(Long vehicleId){
+
+  public Optional<Vehicle> findVehicle(Long vehicleId) {
     Optional<Vehicle> vehicle = vehicleRepository.findById(vehicleId);
     return vehicle;
   }
 
-  public Vehicle registerNewVehicle(Vehicle vehicle) {
-    // create a mapper here
-    //coordinates are set to a static for the test application
-    Location location = new Location();
+  public Vehicle registerNewVehicle(VehicleDTO vehicle) {
+    // coordinates are set to a static for the test application
 
-    location = vehicle.getLocation();
-    if (location.getId() != null){
+    Location location = vehicle.getLocation();
+    if (location.getId() != null) {
       location.setLatitude(58.378025);
       location.setLongitude(26.728493);
     }
-    
-    Vehicle newVehicle = new Vehicle();
-
-    newVehicle.setReserved(false);
-    newVehicle.setLocation(location);
-    newVehicle.setStateOfCharge(vehicle.getStateOfCharge());
-    return vehicleRepository.save(newVehicle);
+    VehicleMapper vehicleMapper = new VehicleMapper();
+    return vehicleRepository.save(vehicleMapper.mapToModel(vehicle));
   }
 
   public void deleteVehicle(Long id) {
@@ -53,7 +48,7 @@ public class VehicleService {
     return vehicleRepository.save(currentVehicle);
   }
 
-  public Boolean reserveVehicle(Long Id){
+  public Boolean reserveVehicle(Long Id) {
     Vehicle currentVehicle = vehicleRepository.findById(Id).get();
     Boolean reserved = currentVehicle.getReserved();
     if (!reserved) {
@@ -62,24 +57,23 @@ public class VehicleService {
       currentVehicle.setReservation(reservationService.startReservation(currentVehicle));
       vehicleRepository.save(currentVehicle);
 
-      return true; 
+      return true;
     } else {
       return false;
     }
   }
 
-  public Boolean unReserveVehicle(Long Id){
+  public Boolean unReserveVehicle(Long Id) {
     Vehicle currentVehicle = vehicleRepository.findById(Id).get();
     Boolean reserved = currentVehicle.getReserved();
     if (!reserved) {
       currentVehicle.setReservation(reservationService.endReservation(currentVehicle));
       currentVehicle.setReserved(false);
       vehicleRepository.save(currentVehicle);
-      return true; 
+      return true;
     } else {
       return false;
     }
   }
-
 
 }

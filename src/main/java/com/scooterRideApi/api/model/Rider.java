@@ -35,4 +35,11 @@ public class Rider {
       createdDtime = LocalDateTime.now();
   }
 
+  public Rider(String username, String password, String email) {
+    this.username = username;
+    this.password = password;
+    this. email = email;
+
+  }
+
 }

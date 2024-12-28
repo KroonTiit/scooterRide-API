@@ -7,6 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.scooterRideApi.api.dto.RiderDTO;
+import com.scooterRideApi.api.dto.mapper.RiderMapper;
 import com.scooterRideApi.api.model.Rider;
 import com.scooterRideApi.api.repository.RiderRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,22 +22,18 @@ public class RiderService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    private ConcurrentHashMap<String, String> tokenStore = new ConcurrentHashMap<>();
 
-    public Rider registerUser(String username, String password, String email) {
-        if (riderRepository.findByUsername(username).isPresent()) {
+    public Rider registerUser(RiderDTO rider) {
+        if (riderRepository.findByUsername(rider.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
-        Rider rider = new Rider();
-        rider.setUsername(username);
-        rider.setPassword(passwordEncoder.encode(password));
-        rider.setEmail(email);
-        return riderRepository.save(rider);
+        RiderMapper riderMapper = new RiderMapper();
+        return riderRepository.save(riderMapper.mapToModel(rider));
     }
 
-    public boolean authenticateUser(String username, String password) {
-        Optional<Rider> rider = riderRepository.findByUsername(username);
-        return rider.isPresent() && passwordEncoder.matches(password, rider.get().getPassword());
+    public boolean authenticateUser(RiderDTO rider) {
+        Optional<Rider> currentRider = riderRepository.findByUsername(rider.getUsername());
+        return currentRider.isPresent() && passwordEncoder.matches(rider.getPassword(), currentRider.get().getPassword());
     }
 
     public String generateToken(String username) {
