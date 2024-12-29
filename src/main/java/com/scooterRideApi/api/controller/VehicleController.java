@@ -27,19 +27,19 @@ public class VehicleController {
   private VehicleService vehicleService;
 
   @GetMapping("/getData")
-  private ResponseEntity<Vehicle> getVehicle(@RequestBody Long vehicleId) {
+  public ResponseEntity<Vehicle> getVehicle(@RequestBody Long vehicleId) {
     Optional<Vehicle> vehicle = vehicleService.findVehicle(vehicleId);
     return ResponseEntity.ok(vehicle.orElse(null));
   }
 
   @PostMapping("/registerNew")
-  private ResponseEntity<String> registerNewVehicle(@RequestBody VehicleDTO vehicle) {
+  public ResponseEntity<String> registerNewVehicle(@RequestBody VehicleDTO vehicle) {
     Vehicle newVehicle = vehicleService.registerNewVehicle(vehicle);
     return ResponseEntity.status(HttpStatus.CREATED).body("created vehicle ID: " + newVehicle.getId());
   }
 
   @DeleteMapping("/delete")
-  private ResponseEntity<String> deleteVehicle(@RequestBody Long Id) {
+  public ResponseEntity<String> deleteVehicle(@RequestBody Long Id) {
     try {
       vehicleService.deleteVehicle(Id);
       return ResponseEntity.ok("deleted vehicle with ID: " + Id);
@@ -49,13 +49,17 @@ public class VehicleController {
   }
 
   @PutMapping("/update")
-  private ResponseEntity<String> updateVehicle(@RequestBody Vehicle vehicle) {
-    Vehicle updatedVehicle = vehicleService.updateVehicle(vehicle);
-    return ResponseEntity.ok("updated vehicle : " + updatedVehicle.getId());
+  public ResponseEntity<String> updateVehicle(@RequestBody Vehicle vehicle) {
+    try {
+      Vehicle updatedVehicle = vehicleService.updateVehicle(vehicle);
+      return ResponseEntity.ok("updated vehicle : " + updatedVehicle.getId());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
   }
 
   @PostMapping("/startRide")
-  private ResponseEntity<String> reserveVehicle(@RequestBody Long Id) {
+  public ResponseEntity<String> reserveVehicle(@RequestBody Long Id) {
     if (vehicleService.reserveVehicle(Id)) {
 
       return ResponseEntity.status(HttpStatus.OK).body("" + Id);
@@ -65,7 +69,7 @@ public class VehicleController {
   }
 
   @PostMapping("/endRide")
-  private ResponseEntity<String> unReserveVehicle(@RequestBody Long Id) {
+  public ResponseEntity<String> unReserveVehicle(@RequestBody Long Id) {
     if (vehicleService.unReserveVehicle(Id)) {
       return ResponseEntity.status(HttpStatus.OK).body("" + Id);
     } else {
