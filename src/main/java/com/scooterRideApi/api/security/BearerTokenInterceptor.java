@@ -4,10 +4,12 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class BearerTokenInterceptor implements org.springframework.web.servlet.HandlerInterceptor {
 
     private ConcurrentHashMap<String, String> tokenStore = new ConcurrentHashMap<>();
