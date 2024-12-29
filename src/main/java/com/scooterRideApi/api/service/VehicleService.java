@@ -50,12 +50,10 @@ public class VehicleService {
 
   public Boolean reserveVehicle(Long Id) {
     Vehicle currentVehicle = vehicleRepository.findById(Id).get();
-    Boolean reserved = currentVehicle.getReserved();
-    if (!reserved) {
+    if (!currentVehicle.isReserved()) {
 
       currentVehicle.setReserved(true);
-      currentVehicle.setReservation(reservationService.startReservation(currentVehicle));
-      vehicleRepository.save(currentVehicle);
+      reservationService.startReservation(currentVehicle);
 
       return true;
     } else {
@@ -65,11 +63,11 @@ public class VehicleService {
 
   public Boolean unReserveVehicle(Long Id) {
     Vehicle currentVehicle = vehicleRepository.findById(Id).get();
-    Boolean reserved = currentVehicle.getReserved();
-    if (!reserved) {
-      currentVehicle.setReservation(reservationService.endReservation(currentVehicle));
+    if (!currentVehicle.isReserved()) {
+
+      reservationService.endReservation(currentVehicle);
       currentVehicle.setReserved(false);
-      vehicleRepository.save(currentVehicle);
+
       return true;
     } else {
       return false;

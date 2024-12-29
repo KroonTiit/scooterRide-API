@@ -1,5 +1,8 @@
 package com.scooterRideApi.api.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,17 +16,23 @@ public class Vehicle {
 
   private Boolean reserved;
 
-  private Reservation reservation;
+  @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Reservation> reservations = new ArrayList<>();
 
   private Integer stateOfCharge;
 
+  @OneToOne
   private Location location;
 
-  public Vehicle(Boolean reserved, Reservation reservation, Integer stateOfCharge, Location location) {
+  public Vehicle(Boolean reserved, List<Reservation> reservations, Integer stateOfCharge, Location location) {
     this.reserved = reserved;
-    this.reservation = reservation;
+    this.reservations = reservations;
     this.stateOfCharge = stateOfCharge;
     this.location = location;
+  }
+
+  public Boolean isReserved(){
+    return reserved;
   }
 
 }

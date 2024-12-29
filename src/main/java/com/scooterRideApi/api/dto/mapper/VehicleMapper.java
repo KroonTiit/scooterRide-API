@@ -8,6 +8,6 @@ import lombok.Value;
 @Value
 public class VehicleMapper {
   public Vehicle mapToModel(VehicleDTO dto) {
-    return new Vehicle(dto.getReserved(), dto.getReservation(), dto.getStateOfCharge(), dto.getLocation());
+    return new Vehicle(dto.getReserved(), dto.getReservations(), dto.getStateOfCharge(), dto.getLocation());
   }
 }

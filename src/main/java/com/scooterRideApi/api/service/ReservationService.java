@@ -15,20 +15,21 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    // need to start a reservation
     public Reservation startReservation(Vehicle currentVehicle) {
         Reservation reservation = new Reservation();
 
         reservation.setStartTime(LocalDateTime.now());
+        reservation.setEndTime(null);
         reservation.setStartingLocation(currentVehicle.getLocation());
+        reservation.setVehicle(currentVehicle);
 
         return reservationRepository.save(reservation);
     }
 
-    // need to end a reservation
     public Reservation endReservation(Vehicle currentVehicle) {
-        Long Id = currentVehicle.getReservation().getId();
-        Reservation reservation = reservationRepository.findById(Id).get();
+        //Long Id = currentVehicle.getReservations();
+        Reservation reservation = reservationRepository.findByVehicleAndEndTimeIsNull(currentVehicle).get();
+        //Reservation reservation = reservationRepository.findById(Id).get();
 
         reservation.setEndTime(LocalDateTime.now());
         reservation.setEndingLocation(currentVehicle.getLocation());
