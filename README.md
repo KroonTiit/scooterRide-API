@@ -95,9 +95,8 @@ Authorization: Bearer {your_token_here}
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-https://github.com/your-repo/scooterRide-Back
 ## Contact
 For any questions or feedback, feel free to reach out:
 - **Email:** tiitkroon@gmail.com
-- **GitHub:** [ScooterRideAPI](git clone https://github.com/KroonTiit/scooterRide-API.git)
+- **GitHub:** [ScooterRideAPI](https://github.com/KroonTiit/scooterRide-API)
 
