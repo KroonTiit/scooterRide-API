@@ -34,7 +34,7 @@ The **Scooter Ride API** is a RESTful web service designed to manage scooter veh
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/scooterRide-Back.git
+   git clone https://github.com/KroonTiit/scooterRide-API.git
    cd scooterRide-Back
    ```
 2. (Optional)H2 inmemory DB  used out of the box.
@@ -95,9 +95,9 @@ Authorization: Bearer {your_token_here}
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-
+https://github.com/your-repo/scooterRide-Back
 ## Contact
 For any questions or feedback, feel free to reach out:
 - **Email:** tiitkroon@gmail.com
-- **GitHub:** [ScooterRideAPI](https://github.com/KroonTiit/scooterRide-Back)
+- **GitHub:** [ScooterRideAPI](git clone https://github.com/KroonTiit/scooterRide-API.git)
 
